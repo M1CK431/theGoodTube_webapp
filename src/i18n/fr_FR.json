@@ -3,5 +3,8 @@
   "WAITING": "En attente",
   "STOPPED": "Arrêté",
   "FINISHED": "Terminé",
-  "NEW": "Nouveau"
+  "NEW": "Nouveau",
+  "NAME": "Nom",
+  "SIZE": "Taille",
+  "PROGRESSION": "Progression"
 }

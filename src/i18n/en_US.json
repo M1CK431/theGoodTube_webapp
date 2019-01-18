@@ -3,5 +3,8 @@
   "WAITING": "Waiting",
   "STOPPED": "Stopped",
   "FINISHED": "Finished",
-  "NEW": "New"
+  "NEW": "New",
+  "NAME": "Name",
+  "SIZE": "Size",
+  "PROGRESSION": "Progression"
 }
