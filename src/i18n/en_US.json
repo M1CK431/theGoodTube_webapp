@@ -1,1 +1,7 @@
-{}
+{
+  "DOWNLOADING": "Downloading",
+  "WAITING": "Waiting",
+  "STOPPED": "Stopped",
+  "FINISHED": "Finished",
+  "NEW": "New"
+}

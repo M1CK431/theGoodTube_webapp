@@ -1,1 +1,7 @@
-{}
+{
+  "DOWNLOADING": "En cours",
+  "WAITING": "En attente",
+  "STOPPED": "Arrêté",
+  "FINISHED": "Terminé",
+  "NEW": "Nouveau"
+}
