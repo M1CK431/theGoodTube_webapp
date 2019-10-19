@@ -10,10 +10,12 @@ import VueAxios from "vue-axios";
 import VueI18n from "vue-i18n";
 import fr_FR from "./i18n/fr_FR.json";
 import en_US from "./i18n/en_US.json";
+import VueSocketIO from "vue-socket.io";
 
 Vue.use(BootstrapVue);
 Vue.use(VueAxios, axios);
 Vue.use(VueI18n);
+Vue.use(new VueSocketIO({ connection: "http://127.0.0.1:5000" }));
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
