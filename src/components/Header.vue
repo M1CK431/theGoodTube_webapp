@@ -19,7 +19,7 @@
             size="sm"
             class="mr-sm-2"
             type="text"
-            placeholder="Search"
+            :placeholder="$t('SEARCH')"
           />
         </b-nav-form>
 
