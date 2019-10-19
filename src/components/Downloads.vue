@@ -1,7 +1,6 @@
 <template>
   <Loader :loading="loading" class="m-2">
     <Error :error="error">
-      Downloads which are in state "{{ downloadsType }}"<br />
       <table class="table">
         <thead>
           <tr>
@@ -11,16 +10,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="index" v-for="(download, index) in downloads">
-            <td>{{ download.name }}</td>
-            <td>{{ download.size }}</td>
+          <tr
+            :key="index"
+            v-for="({ title, progress: { size, percent, status } },
+            index) in downloads"
+          >
+            <td>{{ title }}</td>
+            <td>{{ size }}</td>
             <td>
               <b-progress
-                :value="download.progress"
+                :value="percent"
                 :max="100"
                 variant="success"
                 show-progress
-                animated
+                :animated="status === 'downloading'"
               ></b-progress>
             </td>
           </tr>
@@ -34,6 +37,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import Loader from "./Loader.vue";
 import Error from "./Error.vue";
 
@@ -41,16 +45,44 @@ export default {
   name: "Downloads",
   components: { Loader, Error },
   props: { downloadsType: { type: String, required: true } },
-  data: () => ({ loading: true, error: "", downloads: [] }),
+  data: () => ({ loading: true, error: "", data: [] }),
   mounted() {
     this.axios
       .get("http://127.0.0.1:5000/downloads")
-      .then(({ data }) => (this.downloads = data))
+      .then(({ data }) => {
+        this.data = data;
+        this.setNumberOfDownloads(data);
+      })
       .catch(error => (this.error = JSON.stringify(error)))
       .finally(() => (this.loading = false));
-  }
+  },
+  computed: {
+    downloads() {
+      return this.data
+        .filter(({ progress: { status } }) => status === this.downloadsType)
+        .map(
+          ({
+            progress: {
+              _total_bytes_str,
+              _percent_str,
+              status,
+              ...progressRest
+            },
+            ...rest
+          }) => ({
+            ...rest,
+            progress: {
+              ...progressRest,
+              status,
+              size: _total_bytes_str,
+              percent: status === "finished" ? 100 : parseFloat(_percent_str)
+            }
+          })
+        );
+    }
+  },
+  methods: mapMutations(["setNumberOfDownloads"])
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="stylus"></style>
+<style scoped></style>
