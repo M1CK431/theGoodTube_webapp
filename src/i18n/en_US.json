@@ -1,5 +1,7 @@
 {
   "SEARCH": "Search",
+  "DOWNLOAD": "Download",
+  "URL": "URL",
   "NO_DOWNLOAD_TO_DISPLAY_HERE": "No download to display here",
   "AN_ERROR_OCCURED": "An error occured.",
   "SEE_DETAILS_BELOW": "See details below:",

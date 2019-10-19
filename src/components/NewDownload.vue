@@ -1,9 +1,44 @@
 <template>
-  <div class="p-2">Here will come the new download form</div>
+  <Loader :loading="loading" class="m-2">
+    <Error :error="error">
+      <b-form @submit.prevent="startDownload">
+        <b-form-group :label="$t('URL')" label-for="url">
+          <b-form-input
+            id="url"
+            v-model="url"
+            required
+            placeholder="https://www.youtube.com/watch?v=XXXXX"
+          ></b-form-input>
+        </b-form-group>
+        <b-button type="submit" variant="primary">{{
+          $t("DOWNLOAD")
+        }}</b-button>
+      </b-form>
+    </Error>
+  </Loader>
 </template>
 
 <script>
-export default { name: "NewDownload" };
+import Loader from "./Loader.vue";
+import Error from "./Error.vue";
+
+export default {
+  name: "NewDownload",
+  components: { Loader, Error },
+  data: () => ({ loading: false, error: "", url: "" }),
+  methods: {
+    startDownload() {
+      this.loading = true;
+      const { url } = this;
+
+      this.axios
+        .post("http://127.0.0.1:5000/downloads", { url })
+        .then(() => this.$router.push({ name: "Downloading" }))
+        .catch(error => (this.error = JSON.stringify(error)))
+        .finally(() => (this.loading = false));
+    }
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
