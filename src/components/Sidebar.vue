@@ -24,7 +24,9 @@
       >
         <i class="fas fa-arrow-alt-circle-down mr-1"></i>
         {{ $t("DOWNLOADING") }}
-        <b-badge class="float-right m-1" variant="light">1</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{
+          downloading
+        }}</b-badge>
       </b-nav-item>
       <b-nav-item
         router-tag="div"
@@ -33,7 +35,7 @@
         to="/waiting"
       >
         <i class="fas fa-clock mr-1"></i> {{ $t("WAITING") }}
-        <b-badge class="float-right m-1" variant="light">0</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{ waiting }}</b-badge>
       </b-nav-item>
       <b-nav-item
         router-tag="div"
@@ -42,7 +44,7 @@
         to="/stopped"
       >
         <i class="fas fa-stop-circle mr-1"></i> {{ $t("STOPPED") }}
-        <b-badge class="float-right m-1" variant="light">0</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{ stopped }}</b-badge>
       </b-nav-item>
       <b-nav-item
         router-tag="div"
@@ -51,15 +53,20 @@
         to="/finished"
       >
         <i class="fas fa-check-circle mr-1"></i> {{ $t("FINISHED") }}
-        <b-badge class="float-right m-1" variant="light">0</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{
+          finished
+        }}</b-badge>
       </b-nav-item>
     </b-nav>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  name: "Sidebar"
+  name: "Sidebar",
+  computed: mapState(["downloading", "waiting", "stopped", "finished"])
 };
 </script>
 
