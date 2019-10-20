@@ -15,7 +15,12 @@ import VueSocketIO from "vue-socket.io";
 Vue.use(BootstrapVue);
 Vue.use(VueAxios, axios);
 Vue.use(VueI18n);
-Vue.use(new VueSocketIO({ connection: "http://127.0.0.1:5000" }));
+Vue.use(
+  new VueSocketIO({
+    connection: process.env.VUE_APP_API_URL,
+    vuex: { store, mutationPrefix: "event_" }
+  })
+);
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({

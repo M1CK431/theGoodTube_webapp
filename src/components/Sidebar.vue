@@ -25,7 +25,7 @@
         <i class="fas fa-arrow-alt-circle-down mr-1"></i>
         {{ $t("DOWNLOADING") }}
         <b-badge class="float-right m-1" variant="light">{{
-          downloading
+          numberOfDownloadsPerStatus.downloading || 0
         }}</b-badge>
       </b-nav-item>
       <b-nav-item
@@ -35,7 +35,9 @@
         to="/waiting"
       >
         <i class="fas fa-clock mr-1"></i> {{ $t("WAITING") }}
-        <b-badge class="float-right m-1" variant="light">{{ waiting }}</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{
+          numberOfDownloadsPerStatus.waiting || 0
+        }}</b-badge>
       </b-nav-item>
       <b-nav-item
         router-tag="div"
@@ -44,7 +46,9 @@
         to="/stopped"
       >
         <i class="fas fa-stop-circle mr-1"></i> {{ $t("STOPPED") }}
-        <b-badge class="float-right m-1" variant="light">{{ stopped }}</b-badge>
+        <b-badge class="float-right m-1" variant="light">{{
+          numberOfDownloadsPerStatus.stopped || 0
+        }}</b-badge>
       </b-nav-item>
       <b-nav-item
         router-tag="div"
@@ -54,7 +58,7 @@
       >
         <i class="fas fa-check-circle mr-1"></i> {{ $t("FINISHED") }}
         <b-badge class="float-right m-1" variant="light">{{
-          finished
+          numberOfDownloadsPerStatus.finished || 0
         }}</b-badge>
       </b-nav-item>
     </b-nav>
@@ -62,15 +66,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Sidebar",
-  computed: mapState(["downloading", "waiting", "stopped", "finished"])
+  computed: mapGetters(["numberOfDownloadsPerStatus"])
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
 .active
   cursor default
