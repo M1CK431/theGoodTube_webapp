@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const { VUE_APP_API_URL: apiUrl } = process.env;
 
 export default new Vuex.Store({
-  state: { downloads: [] },
+  state: { downloads: [], search: "" },
   getters: {
     numberOfDownloadsPerStatus: ({ downloads }) =>
       downloads.reduce(
@@ -29,7 +29,8 @@ export default new Vuex.Store({
         downloads.push(payload);
       }
       state.downloads = downloads;
-    }
+    },
+    setSearch: (state, search) => (state.search = search)
   },
   actions: {
     getDownloads: ({ commit }) =>

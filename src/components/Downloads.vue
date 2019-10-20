@@ -54,10 +54,11 @@ export default {
   name: "Downloads",
   props: { downloadsType: { type: String, required: true } },
   computed: {
-    ...mapState(["downloads"]),
+    ...mapState(["downloads", "search"]),
     filteredDownloads() {
       return this.downloads.filter(
-        ({ progress: { status } }) => status === this.downloadsType
+        ({ title, progress: { status } }) =>
+          status === this.downloadsType && RegExp(this.search, "i").test(title)
       );
     }
   }

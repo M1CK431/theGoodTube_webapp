@@ -16,6 +16,8 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-form>
           <b-form-input
+            :value="search"
+            @input="setSearch"
             size="sm"
             class="mr-sm-2"
             type="text"
@@ -33,8 +35,13 @@
 </template>
 
 <script>
-export default { name: "Header" };
+import { mapState, mapMutations } from "vuex";
+
+export default {
+  name: "Header",
+  computed: mapState(["search"]),
+  methods: mapMutations(["setSearch"])
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus"></style>
