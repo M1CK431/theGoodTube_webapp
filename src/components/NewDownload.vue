@@ -34,7 +34,7 @@ export default {
       this.axios
         .post("http://127.0.0.1:5000/downloads", { url })
         .then(() => this.$router.push({ name: "Downloading" }))
-        .catch(error => (this.error = JSON.stringify(error)))
+        .catch(error => (this.error = error))
         .finally(() => (this.loading = false));
     }
   }
