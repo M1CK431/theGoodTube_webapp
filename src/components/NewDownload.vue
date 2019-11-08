@@ -22,6 +22,8 @@
 import Loader from "./Loader.vue";
 import Error from "./Error.vue";
 
+const { VUE_APP_API_URL: apiUrl } = process.env;
+
 export default {
   name: "NewDownload",
   components: { Loader, Error },
@@ -32,7 +34,7 @@ export default {
       const { url } = this;
 
       this.axios
-        .post("http://127.0.0.1:5000/downloads", { url })
+        .post(`${apiUrl}/downloads`, { url })
         .then(() => this.$router.push({ name: "Downloading" }))
         .catch(error => (this.error = error))
         .finally(() => (this.loading = false));
@@ -41,5 +43,4 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus"></style>
