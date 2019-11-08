@@ -2,15 +2,33 @@
   <b-navbar toggleable="md" variant="light">
     <b-collapse is-nav>
       <b-navbar-nav>
-        <b-nav-item to="/new" class="pr-2 border-right">
+        <b-nav-item to="/new" class="pr-2 mr-2 border-right">
           <i class="fas fa-plus mr-1"></i>{{ $t("NEW") }}
         </b-nav-item>
-        <b-nav-item disabled class="ml-2">
-          <i class="fas fa-play"></i>
+
+        <b-nav-item
+          :disabled="!numberOfSelectedDownloadsPerStatus.stopped"
+          @click="startSelectedDownloads"
+          ><i class="fas fa-play"></i
+        ></b-nav-item>
+        <b-nav-item
+          :disabled="!numberOfSelectedDownloadsPerStatus.downloading"
+          @click="stopSelectedDownloads"
+          ><i class="fas fa-stop"></i
+        ></b-nav-item>
+        <b-nav-item
+          :disabled="!selectedDownloads.length"
+          @click="deleteSelectedDownloads"
+        >
+          <i class="fas fa-trash-alt"></i>
         </b-nav-item>
-        <b-nav-item disabled><i class="fas fa-stop"></i></b-nav-item>
-        <b-nav-item disabled> <i class="fas fa-eraser"></i> </b-nav-item>
-        <b-nav-item disabled> <i class="fas fa-trash-alt"></i> </b-nav-item>
+        <b-nav-item
+          v-show="$route.name === 'Finished'"
+          :disabled="!numberOfDownloadsPerStatus.finished"
+          @click="clearFinishedDownloads"
+        >
+          <i class="fas fa-eraser"></i>
+        </b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
@@ -35,12 +53,27 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "Header",
-  computed: mapState(["search"]),
-  methods: mapMutations(["setSearch"])
+  computed: {
+    ...mapState(["search"]),
+    ...mapGetters([
+      "numberOfDownloadsPerStatus",
+      "numberOfSelectedDownloadsPerStatus",
+      "selectedDownloads"
+    ])
+  },
+  methods: {
+    ...mapMutations(["setSearch"]),
+    ...mapActions([
+      "startSelectedDownloads",
+      "stopSelectedDownloads",
+      "clearFinishedDownloads",
+      "deleteSelectedDownloads"
+    ])
+  }
 };
 </script>
 
