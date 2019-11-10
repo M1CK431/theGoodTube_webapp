@@ -69,6 +69,11 @@ export default new Vuex.Store({
     get event_delete() {
       return this.event_clear;
     },
+    event_clear_finished: state => {
+      state.downloads = state.downloads.filter(
+        ({ progress: { status } }) => status !== "finished"
+      );
+    },
     setSearch: (state, search) => (state.search = search)
   },
 
@@ -77,12 +82,16 @@ export default new Vuex.Store({
       axios
         .get(`${apiUrl}/downloads`)
         .then(({ data }) => commit("setDownloads", data)),
-    clearFinishedDownloads: ({ state: { downloads } }) =>
-      axios.all(
-        downloads
-          .filter(({ progress: { status } }) => status === "finished")
-          .map(({ id }) => axios.delete(`${apiUrl}/downloads/${id}`))
-      ),
+    clearDownloads: ({ getters: { selectedDownloads } }) => {
+      if (selectedDownloads.length) {
+        return axios.all(
+          selectedDownloads
+            .filter(({ progress: { status } }) => status === "finished")
+            .map(({ id }) => axios.delete(`${apiUrl}/downloads/${id}`))
+        );
+      }
+      return axios.delete(`${apiUrl}/downloads`);
+    },
     startSelectedDownloads: ({ state: { downloads } }) =>
       axios.all(
         downloads

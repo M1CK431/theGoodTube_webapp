@@ -22,11 +22,7 @@
         >
           <i class="fas fa-trash-alt"></i>
         </b-nav-item>
-        <b-nav-item
-          v-show="$route.name === 'Finished'"
-          :disabled="!numberOfDownloadsPerStatus.finished"
-          @click="clearFinishedDownloads"
-        >
+        <b-nav-item v-show="$route.name === 'Finished'" @click="clearDownloads">
           <i class="fas fa-eraser"></i>
         </b-nav-item>
       </b-navbar-nav>
@@ -70,7 +66,7 @@ export default {
     ...mapActions([
       "startSelectedDownloads",
       "stopSelectedDownloads",
-      "clearFinishedDownloads",
+      "clearDownloads",
       "deleteSelectedDownloads"
     ])
   }
