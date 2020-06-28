@@ -24,7 +24,7 @@ Vue.use(
 Vue.config.productionTip = false;
 
 const i18n = new VueI18n({
-  locale: "fr_FR",
+  locale: "en_US",
   fallbackLocale: "en_US",
   messages: { fr_FR, en_US }
 });
