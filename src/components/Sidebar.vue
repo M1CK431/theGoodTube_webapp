@@ -1,24 +1,17 @@
 <template>
   <div class="p-2 bg-dark" style="height: 100vh" role="navigation">
-    <router-link
-      to="/"
-      tag="h3"
-      class="text-center my-3"
-      style="cursor: pointer"
-    >
-      <span class="text-light">
-        <span style="font-size: 0.8em" class="align-top">the</span>Good<b-badge
-          style="font-size: 1em"
-          variant="danger"
-          >Tube</b-badge
-        >
-      </span>
+    <router-link to="/" style="text-decoration: none">
+      <h3 class="text-center my-3" style="cursor: pointer">
+        <span class="text-light">
+          <span style="font-size: 0.8em" class="align-top">the</span
+          >Good<b-badge style="font-size: 1em" variant="danger">Tube</b-badge>
+        </span>
+      </h3>
     </router-link>
     <hr class="text-secondary bg-secondary" />
     <b-nav vertical>
       <b-nav-item
-        router-tag="div"
-        class="text-white-50 inactive"
+        class="block text-white-50 inactive"
         active-class="bg-secondary text-light font-weight-bold active"
         to="/downloading"
       >
@@ -29,8 +22,7 @@
         }}</b-badge>
       </b-nav-item>
       <b-nav-item
-        router-tag="div"
-        class="text-white-50 inactive"
+        class="block text-white-50 inactive"
         active-class="bg-secondary text-light font-weight-bold active"
         to="/waiting"
       >
@@ -40,8 +32,7 @@
         }}</b-badge>
       </b-nav-item>
       <b-nav-item
-        router-tag="div"
-        class="text-white-50 inactive"
+        class="block text-white-50 inactive"
         active-class="bg-secondary text-light font-weight-bold active"
         to="/stopped"
       >
@@ -51,8 +42,7 @@
         }}</b-badge>
       </b-nav-item>
       <b-nav-item
-        router-tag="div"
-        class="text-white-50 inactive"
+        class="block text-white-50 inactive"
         active-class="bg-secondary text-light font-weight-bold active"
         to="/finished"
       >
